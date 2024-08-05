@@ -1,5 +1,4 @@
 version: '3.9'
-
 services:
   db:
     build:
@@ -14,7 +13,6 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - app-network
-
   node-service:
     build:
       context: .
@@ -28,9 +26,8 @@ services:
       - db
     networks:
       - app-network
-    ports:
-      - "3000:3000"
-
+    deploy:
+      replicas: 3
   nginx:
     build:
       context: .
@@ -41,9 +38,7 @@ services:
       - node-service
     networks:
       - app-network
-
 volumes:
   db-data:
-
 networks:
   app-network:
